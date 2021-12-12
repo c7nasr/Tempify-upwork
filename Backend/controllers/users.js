@@ -1,6 +1,4 @@
-const axios = require("axios");
 
-const User = require("../models/user");
 const Mailjs = require("@cemalgnlts/mailjs");
 const MailService = new Mailjs();
 
