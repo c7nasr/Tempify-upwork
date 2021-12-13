@@ -5,7 +5,8 @@ import Head from 'next/head'
 function MyApp({ Component, pageProps }) {
   return <>
    <Head>
-        <title>Create Next App</title>
+   <html className="dark" />
+        <title>Tempify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

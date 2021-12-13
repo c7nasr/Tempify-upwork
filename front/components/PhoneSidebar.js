@@ -8,12 +8,12 @@ function PhoneSidebar({ ToggleNavbar, NavbarStatus }) {
     <div className="md:hidden">
       <div className="fixed inset-0 z-40 flex">
         <Transition
-          show={true}
+          show={NavbarStatus}
           enterFrom="transition-opacity duration-300 ease-linear"
           className={
             "fixed inset-0 transition-opacity duration-300 ease-linear"
           }
-          appear={true}
+          appear={NavbarStatus}
         >
           <div className="absolute inset-0 bg-gray-600 opacity-50 dark:bg-gray-800"></div>
         </Transition>

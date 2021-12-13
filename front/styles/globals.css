@@ -28,3 +28,6 @@
     opacity: .1;
     enable-background: new;
 }
+.account-blur {
+    filter: blur(0.2rem);
+}
