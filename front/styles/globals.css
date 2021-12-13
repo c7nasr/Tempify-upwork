@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.box {
+	@apply
+		h-32 min-w-full min-h-full text-gray-100 bg-indigo-700 rounded;
+}
+.st2 {
+    fill: #6c63ff;
+}
+.st1 {
+    fill: none;
+    stroke: #535461;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+}
+.st0 {
+    opacity: .1;
+    fill: #6c63ff;
+    enable-background: new;
+}
+.st5 {
+    fill: #dcdfed;
+}
+.st6 {
+    opacity: .1;
+    enable-background: new;
+}
