@@ -5,10 +5,11 @@ import Home from "../components/Home";
 import Main from "../components/Main";
 
 export default function Index({ user, token, id, password,messages }) {
+  const [AllMessages,SetAllMessages] = React.useState([])
 
   return (
-    <Home user={user} token={token} id={id} password={password}>
-      <Main messages={messages} user={user} token={token} id={id} password={password} />
+    <Home SetAllMessages={SetAllMessages} allMessages={AllMessages} user={user} token={token} id={id} password={password}>
+      <Main user={user} token={token} id={id} password={password} SetAllMessages={SetAllMessages} allMessages={AllMessages}/>
     </Home>
   );
 }

@@ -9,13 +9,12 @@ import prettyBytes from "pretty-bytes";
 const API = new TempifyAPI();
 
 
-function SidebarItems({id,token,user}) {
+function SidebarItems({id,token,user,SetAllMessages}) {
 
-  const [AllMessages,SetAllMessages] = React.useState()
   
   const RefreshInbox = async () => {
-  const messages=   await API.GetAllMessages(token)
-  SetAllMessages(messages)
+  const messages= await API.GetAllMessages(token)
+    SetAllMessages(messages)
   }
   return (
     <>
@@ -54,7 +53,7 @@ function SidebarItems({id,token,user}) {
           </Link>
           <span
             onClick={RefreshInbox}
-            className="flex items-center px-2 py-2 mt-1 text-sm font-medium leading-5 text-gray-600 transition rounded-md group dark:hover:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:text-white dark:focus:bg-gray-800 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-50 "
+            className="flex items-center px-2 py-2 mt-1 text-sm font-medium leading-5 text-gray-600 transition rounded-md cursor-pointer group dark:hover:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:text-white dark:focus:bg-gray-800 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-50 "
           >
           <BiRefresh className="w-6 h-6 mr-3 text-gray-400 transition dark:group-hover:text-gray-300 dark:group-focus:text-gray-300 dark:text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"/>
             Refresh

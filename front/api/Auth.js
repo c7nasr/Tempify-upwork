@@ -34,12 +34,12 @@ const AuthenticationProtocol = async (req = "", res = "",mail = "", password="")
 
     const user_info = await API.GetUser(id, token);
     // Save Cookies
-    console.log(user_info,account,id,token);
     if (user_info && account && token && id){
       setCookies("user", token, opts);
       setCookies("id", id, opts);
       setCookies("password", password, opts);
     }
+
    
 
 
