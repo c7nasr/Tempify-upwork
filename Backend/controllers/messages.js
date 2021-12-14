@@ -14,6 +14,19 @@ exports.GetAllMessages = async (req,res) => {
     }
 }
 
+
+exports.GetAllDomains = async (req,res) => {
+    try {
+        const domains = await MailService.getDomains()
+
+        return res.json(domains);
+    }catch (e) {
+
+        console.log("ServerDown, "+e)
+        return res.json({status:"failed",error:e.toString()})
+    }
+}
+
 exports.GetMessage = async (req,res) => {
     try {
         const {message} = req.params

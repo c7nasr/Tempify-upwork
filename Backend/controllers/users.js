@@ -4,7 +4,14 @@ const MailService = new Mailjs();
 
 exports.CreateUser = async (req,res) => {
     try {
-        const user = await  MailService.createOneAccount()
+        const {email,password} = req.body
+        let user
+        if (!email || !password) {
+            user = await  MailService.createOneAccount()
+        }else{
+            user = await MailService.register(email,password)
+        }
+        
 
         return res.json(user);
     }catch (e) {
