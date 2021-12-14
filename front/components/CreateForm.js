@@ -1,13 +1,20 @@
-import { AiOutlineUser } from "react-icons/ai";
-import { BsKey } from "react-icons/bs";
-import { HiOutlineMail } from "react-icons/hi";
 import React, { useEffect, useState } from "react";
-import TempifyAPI from "../api/Connection";
-const API = new TempifyAPI();
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+
+import { AiOutlineUser } from "react-icons/ai";
 import AuthenticationProtocol from "../api/Auth";
+import { BsKey } from "react-icons/bs";
+import Cookier from "../api/Cookier";
+import { HiOutlineMail } from "react-icons/hi";
+import TempifyAPI from "../api/Connection";
 import { setCookies } from "cookies-next";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+
+const API = new TempifyAPI();
+
+
+
+
 
 function CreateForm({ closeModal }) {
   const {
@@ -44,14 +51,10 @@ function CreateForm({ closeModal }) {
     } else {
       let mail = `${data.username}@${data.domain}`;
       const { token, id } = await API.Login(mail, data.password);
-
-      setCookies("user", token);
-      setCookies("id", id);
-      setCookies("password", data.password);
+      Cookier(token,id,data.password)
       toast.success("Email created successfully");
       closeModal()
       window.location.href = "/";
-      // await API.Logout(true);
     }
   };
 
@@ -101,7 +104,6 @@ function CreateForm({ closeModal }) {
                         className="py-0 pl-2 text-gray-500 bg-transparent border-transparent rounded-md dark:focus:outline-none dark:focus:border-blue-600 pr-7 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-700 sm:text-sm sm:leading-5"
                       >
                         {domains?.map((e,i) => <option value={e} key={i}>{e}</option>)}
-                        
                       </select>
                     </div>
                   </div>
@@ -131,7 +133,7 @@ function CreateForm({ closeModal }) {
                 </span>
               </div>
               {errors.length > 0 && (
-                <span className="text-red-700 text-center flex mt-2 justify-center">
+                <span className="flex justify-center mt-2 text-center text-red-700">
                   Username or password is incorrect.
                 </span>
               )}
