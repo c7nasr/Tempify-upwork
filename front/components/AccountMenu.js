@@ -4,10 +4,10 @@ import { Menu, Transition } from "@headlessui/react";
 
 import { AiOutlineUser } from "react-icons/ai";
 import { BiTrash } from "react-icons/bi";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import CreateModal from "./Model";
 import DeleteAccountDialog from "./DeleteAccount";
 import TempifyAPI from "../api/Connection";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
 
 const API = new TempifyAPI();
@@ -41,6 +41,7 @@ export default function AccountMenu({ user, token, id, password }) {
         isLogin={isLogin}
       />
       <DeleteAccountDialog
+      id={id}
         isOpen={isDeleteAccount}
         setIsOpen={setIsDeleteAccount}
         closeModal={() => setIsDeleteAccount(false)}

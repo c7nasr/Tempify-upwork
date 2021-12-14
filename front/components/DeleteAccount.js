@@ -2,13 +2,30 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
 import { GoAlert } from "react-icons/go";
+import TempifyAPI from "../api/Connection";
+import toast from "react-hot-toast";
+
+const API = new TempifyAPI();
+
 
 export default function DeleteAccountDialog({
   isOpen,
   setIsOpen,
   closeModal,
   openModal,
+  id
 }) {
+
+  const DeleteAccountDialogFunction = () => {
+    toast.success("Deleting Your Account...");
+    API.DeleteUser(id).then(() => {
+      closeModal();
+      toast.success("Account Deleted Successfully");
+
+    })
+    
+  }
+
   return (
     <>
       <Transition
@@ -66,6 +83,7 @@ export default function DeleteAccountDialog({
               <div className="px-4 py-3 bg-gray-50 dark:bg-gray-700 sm:flex sm:flex-row-reverse sm:px-6">
                 <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                   <button
+                  onClick={DeleteAccountDialogFunction}
                     type="button"
                     className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition bg-red-600 border border-transparent rounded-md shadow-sm focus:ring-red hover:bg-red-500 focus:border-red-700 focus:outline-none sm:text-sm sm:leading-5"
                   >

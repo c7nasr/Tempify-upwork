@@ -23,21 +23,21 @@ const AuthenticationProtocol = async (req = "", res = "",mail = "", password="")
 
     // Login with  the account
 
-    const { token, id } = await API.Login(account.username, account.password);
+    const {id,token} = await API.Login(account.username, account.password);
+
+ 
 
 
     const user_info = await API.GetUser(id, token);
     // Save Cookies
-
-
     setCookies("user", token, opts);
     setCookies("id", id, opts);
     setCookies("password", account.password, opts);
 
     return {
       user: user_info,
-      token,
-      id,
+      token:token,
+      id:id,
       password: account.password,
     };
   } else {

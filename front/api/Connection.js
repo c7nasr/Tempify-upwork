@@ -58,7 +58,7 @@ class TempifyAPI {
     if (data.status === true) {
       return { token: data.data.token, id: data.data.id };
     } else {
-      return null
+      return {};
     }
   }
 
@@ -78,6 +78,25 @@ class TempifyAPI {
       return {};
     }
   }
+  async DeleteUser(id) {
+    try {
+      const { data } = await axios.post(
+        `${this.base_url}/users/auth/delete`,
+        { id },
+        { headers: this.headers }
+      );
+      if (data.status === true) {
+        this.Logout(false);
+      } else {
+        toast.error("Something Went Error");
+        return null;
+      }
+    } catch (error) {
+      toast.error("Something Went Error");
+      return null;
+    }
+  }
+
 
   async Logout(relogin=true) {
     try {

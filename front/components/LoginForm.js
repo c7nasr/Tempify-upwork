@@ -23,8 +23,7 @@ function LoginForm({ closeModal }) {
   } = useForm();
   const onSubmit = async (data) => {
     const user = await API.Login(data.mail, data.password)
-    if (user){
-      console.log(user);
+    if (user?.token){
       Cookier(user.token, user.id, data.password)
       closeModal()
       router.replace(window.location.pathname)
