@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 import { AiOutlineUser } from "react-icons/ai";
-import AuthenticationProtocol from "../api/Auth";
 import { BsKey } from "react-icons/bs";
 import Cookier from "../api/Cookier";
 import { HiOutlineMail } from "react-icons/hi";
 import TempifyAPI from "../api/Connection";
-import { setCookies } from "cookies-next";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 const API = new TempifyAPI();
 
-
-
-
-
 function CreateForm({ closeModal }) {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -54,7 +51,7 @@ function CreateForm({ closeModal }) {
       Cookier(token,id,data.password)
       toast.success("Email created successfully");
       closeModal()
-      window.location.href = "/";
+      router.replace(window.location.pathname)
     }
   };
 

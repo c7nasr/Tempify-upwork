@@ -1,7 +1,8 @@
+import AuthenticationProtocol from "./Auth"
 import axios from "axios";
 import { removeCookies } from "cookies-next";
 import toast from "react-hot-toast";
-import AuthenticationProtocol from "./Auth"
+
 class TempifyAPI {
   constructor() {
     this.base_url = "http://localhost:5001";
@@ -54,12 +55,10 @@ class TempifyAPI {
       mail: email,
       pass: password,
     });
-
     if (data.status === true) {
       return { token: data.data.token, id: data.data.id };
     } else {
-      toast.error("Something Went Error");
-      return {};
+      return null
     }
   }
 

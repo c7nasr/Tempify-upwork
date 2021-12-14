@@ -1,5 +1,7 @@
 import { checkCookies, getCookie, setCookies } from "cookies-next";
+
 import TempifyAPI from "./Connection";
+
 const AuthenticationProtocol = async (req = "", res = "",mail = "", password="") => {
     const API = new TempifyAPI();
 
