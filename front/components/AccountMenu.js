@@ -42,6 +42,7 @@ export default function AccountMenu({ user, token, id, password }) {
       />
       <DeleteAccountDialog
       id={id}
+      token={token}
         isOpen={isDeleteAccount}
         setIsOpen={setIsDeleteAccount}
         closeModal={() => setIsDeleteAccount(false)}

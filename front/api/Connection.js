@@ -78,15 +78,34 @@ class TempifyAPI {
       return {};
     }
   }
-  async DeleteUser(id) {
+  async DeleteUser(id,token) {
     try {
       const { data } = await axios.post(
-        `${this.base_url}/users/auth/delete`,
+        `${this.base_url}/users/auth/delete?token=${token}`,
         { id },
         { headers: this.headers }
       );
       if (data.status === true) {
         this.Logout(false);
+      } else {
+        toast.error("Something Went Error");
+        return null;
+      }
+    } catch (error) {
+      toast.error("Something Went Error");
+      return null;
+    }
+  }
+
+
+
+  async GetAllMessages(token) {
+    try {
+      const { data } = await axios.get(
+        `${this.base_url}/messages?token=${token}`
+      );
+      if (data.status === true) {
+        return data.data
       } else {
         toast.error("Something Went Error");
         return null;

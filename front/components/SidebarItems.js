@@ -1,10 +1,26 @@
+import { BiRefresh } from "react-icons/bi";
+import { BsInbox } from "react-icons/bs";
+import Link from "next/link";
+import Progressbar from "./Progressbar";
 import React from "react";
+import TempifyAPI from "../api/Connection";
+import prettyBytes from "pretty-bytes";
 
-function SidebarItems() {
+const API = new TempifyAPI();
+
+
+function SidebarItems({id,token,user}) {
+
+  const [AllMessages,SetAllMessages] = React.useState()
+  
+  const RefreshInbox = async () => {
+  const messages=   await API.GetAllMessages(token)
+  SetAllMessages(messages)
+  }
   return (
     <>
       <div className="flex items-center flex-shrink-0 px-4">
-        <a href="/" className=" active">
+        <Link href="/" >
           <svg
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -26,50 +42,30 @@ function SidebarItems() {
               fill="#6875F5"
             ></path>
           </svg>
-        </a>
+        </Link>
       </div>
       <div className="flex flex-col flex-1 h-0 mt-5 overflow-y-auto">
         <nav className="flex-1 px-2">
-          <a className="flex items-center px-2 py-2 text-sm font-medium leading-5 text-gray-900 transition rounded-md cursor-pointer group dark:hover:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:text-white dark:focus:bg-gray-800 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-100 ">
-            <svg
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-6 h-6 mr-3 text-gray-500 transition dark:group-hover:text-gray-300 dark:group-focus:text-gray-300 dark:text-gray-400 group-hover:text-gray-500 group-focus:text-gray-600"
-            >
-              <path d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-            </svg>
+          <Link href="/">
+          <span href="/" className="flex items-center px-2 py-2 text-sm font-medium leading-5 text-gray-900 transition rounded-md cursor-pointer group dark:hover:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:text-white dark:focus:bg-gray-800 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-100 ">
+            <BsInbox className="w-6 h-6 mr-3 text-gray-500 transition dark:group-hover:text-gray-300 dark:group-focus:text-gray-300 dark:text-gray-400 group-hover:text-gray-500 group-focus:text-gray-600"/>
             Inbox
-          </a>
-          <a
-            href="/"
+          </span>
+          </Link>
+          <span
+            onClick={RefreshInbox}
             className="flex items-center px-2 py-2 mt-1 text-sm font-medium leading-5 text-gray-600 transition rounded-md group dark:hover:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:text-white dark:focus:bg-gray-800 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-50 "
           >
-            <svg
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-6 h-6 mr-3 text-gray-400 transition dark:group-hover:text-gray-300 dark:group-focus:text-gray-300 dark:text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              ></path>
-            </svg>
+          <BiRefresh className="w-6 h-6 mr-3 text-gray-400 transition dark:group-hover:text-gray-300 dark:group-focus:text-gray-300 dark:text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"/>
             Refresh
-          </a>
+          </span>
         </nav>
       </div>
       <div className="px-2 mt-10 mb-2">
         <dl className="px-3 py-2">
           <dd className="flex items-baseline mt-1 text-sm">
             <span className="leading-5 text-gray-600 dark:text-indigo-400">
-              0 B
+              {user && prettyBytes(user.used || 0)}
             </span>
             <span className="ml-2 font-medium leading-5 text-gray-500 dark:text-gray-300">
               / 40 MB
@@ -79,7 +75,7 @@ function SidebarItems() {
             <div className="flex h-2 mb-4 overflow-hidden text-xs bg-gray-200 rounded dark:bg-gray-600">
               <div
                 className="flex flex-col justify-center text-center text-white bg-gray-500 shadow-none whitespace-nowrap dark:bg-indigo-400"
-                style={{ width: "0%" }}
+                style={{ width: `${user.used / user.quota}` }}
               ></div>
             </div>
           </dd>

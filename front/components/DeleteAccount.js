@@ -13,12 +13,12 @@ export default function DeleteAccountDialog({
   setIsOpen,
   closeModal,
   openModal,
-  id
+  id,token
 }) {
 
   const DeleteAccountDialogFunction = () => {
     toast.success("Deleting Your Account...");
-    API.DeleteUser(id).then(() => {
+    API.DeleteUser(id,token).then(() => {
       closeModal();
       toast.success("Account Deleted Successfully");
 

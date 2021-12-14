@@ -1,64 +1,81 @@
-
 const Mailjs = require("@cemalgnlts/mailjs");
-const MailService = new Mailjs();
+const { default: axios } = require("axios");
+const {
+  uniqueNamesGenerator,
+  adjectives,
+  colors,
+  animals,
+} = require("unique-names-generator");
 
-exports.CreateUser = async (req,res) => {
-    try {
-        const {email,password} = req.body
-        let user
-        if (!email || !password) {
-            user = await  MailService.createOneAccount()
-        }else{
-            user = await MailService.register(email,password)
-        }
-        
+exports.CreateUser = async (req, res) => {
+  const MailService = new Mailjs();
 
-        return res.json(user);
-    }catch (e) {
+  try {
+    const { email, password } = req.body;
 
-        console.log("ServerDown, "+e)
-        return res.json({status:"failed",error:e.toString()})
+    if (!email || !password) {
+      const randomName = uniqueNamesGenerator({
+        dictionaries: [adjectives, colors],
+      }); 
+      const domain = await (
+        await axios.get("https://api.mail.tm/domains?page=1")
+      ).data["hydra:member"][0].domain;
+
+      const user = await MailService.register(randomName + "@" + domain, randomName);
+
+
+      return res.json(user);
+    } else {
+      const user = await MailService.register(email, password);
+      console.log("Userika");
+      return res.json(user);
     }
-}
+  } catch (e) {
+    console.log("ServerDown, " + e);
+    return res.json({ status: "failed", error: e.toString() });
+  }
+};
 
-exports.LoginUser = async (req,res) => {
-    try {
-        const {mail,pass} = req.body
-        const user = await  MailService.login(mail,pass)
+exports.LoginUser = async (req, res) => {
+  const MailService = new Mailjs();
 
-        return res.json(user);
-    }catch (e) {
+  try {
+    const { mail, pass } = req.body;
+    const user = await MailService.login(mail, pass);
 
-        console.log("ServerDown, "+e)
-        return res.json({status:"failed",error:e.toString()})
-    }
-}
+    return res.json(user);
+  } catch (e) {
+    console.log("ServerDown, " + e);
+    return res.json({ status: "failed", error: e.toString() });
+  }
+};
 
-exports.GetUser = async (req,res) => {
-    try {
-        const {id,token} = req.query
-        MailService.token = token
-        const user = await  MailService.getAccount(id)
+exports.GetUser = async (req, res) => {
+  const MailService = new Mailjs();
 
+  try {
+    const { id, token } = req.query;
+    MailService.token = token;
+    const user = await MailService.getAccount(id);
 
-        return res.json(user);
-    }catch (e) {
+    return res.json(user);
+  } catch (e) {
+    console.log("ServerDown, " + e);
+    return res.json({ status: "failed", error: e.toString() });
+  }
+};
 
-        console.log("ServerDown, "+e)
-        return res.json({status:"failed",error:e.toString()})
-    }
-}
+exports.DeleteUser = async (req, res) => {
+  const MailService = new Mailjs();
 
+  try {
+    MailService.token = req.query.token;
+    const { id } = req.body;
+    const user = await MailService.deleteAccount(id);
 
-exports.DeleteUser = async (req,res) => {
-    try {
-        const {id} = req.body
-        const user = await MailService.deleteAccount(id)
-
-        return res.json(user);
-    }catch (e) {
-
-        console.log("ServerDown, "+e)
-        return res.json({status:"failed",error:e.toString()})
-    }
-}
+    return res.json(user);
+  } catch (e) {
+    console.log("ServerDown, " + e);
+    return res.json({ status: "failed", error: e.toString() });
+  }
+};
