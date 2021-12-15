@@ -2,7 +2,6 @@ const app = require("./app");
 const mongoose = require("mongoose");
 
 
-const db = process.env.DATABASE.replace("<PASSWORD>", process.env.PASSWORD);
 const port = process.env.PORT || 5000;
 
 const ServerBoot = async () =>{
