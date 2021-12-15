@@ -116,6 +116,61 @@ class TempifyAPI {
     }
   }
 
+  
+  async GetMessageById(id,token) {
+    try {
+      const { data } = await axios.post(
+        `${this.base_url}/messages/${id}?token=${token}`
+      );
+      
+      if (data.status === true) {
+        return data.data
+      } else {
+        toast.error("Something Went Error");
+        return null;
+      }
+    } catch (error) {
+      toast.error("Something Went Error");
+      return null;
+    }
+  }
+
+  async MarkImageAsSeen(id,token) {
+    try {
+      const { data } = await axios.post(
+        `${this.base_url}/messages/${id}/seen?token=${token}`
+      );
+      
+      if (data.status === true) {
+        return true
+      } else {
+        toast.error("Something Went Error");
+        return null;
+      }
+    } catch (error) {
+      toast.error("Something Went Error");
+      return null;
+    }
+  }
+
+  async DeleteMessage(id,token) {
+    try {
+      const { data } = await axios.post(
+        `${this.base_url}/messages/${id}/delete?token=${token}`
+      );
+      
+      if (data.status === true) {
+        return true
+      } else {
+        toast.error("Something Went Error");
+        return null;
+      }
+    } catch (error) {
+      toast.error("Something Went Error");
+      return null;
+    }
+  }
+
 
   async Logout(relogin=true) {
     try {

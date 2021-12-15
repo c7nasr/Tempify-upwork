@@ -13,6 +13,7 @@ function SidebarItems({id,token,user,SetAllMessages}) {
 
   
   const RefreshInbox = async () => {
+    if (!SetAllMessages) return;
   const messages= await API.GetAllMessages(token)
     SetAllMessages(messages)
   }

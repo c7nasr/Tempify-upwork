@@ -1,7 +1,7 @@
-import React from "react";
 import MessageRow from "./MessageRow";
+import React from "react";
 
-function Inbox({AllMessages}) {
+function Inbox({AllMessages,token,id,user,password}) {
   return (
     <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8 lg:max-w-full">
       <div className="mt-2 md:flex md:items-center md:justify-between">
@@ -16,7 +16,7 @@ function Inbox({AllMessages}) {
       <div
         className="mt-6 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-md"
       >
-        {AllMessages?.map((message) =>  <MessageRow id={message.id} subject={message.subject} seen={message.seen} key={message.id} from={message.from}/>)}
+        {AllMessages?.map((message) => <MessageRow id={message.id} subject={message.subject} seen={message.seen} key={message.id} from={message.from} user={user} password={password} AllMessages={AllMessages} />)}
       
       </div>
     </div>
