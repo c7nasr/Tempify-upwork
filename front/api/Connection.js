@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 class TempifyAPI {
   constructor() {
-    this.base_url = "https://tempifyx.herokuapp.com";
+    this.base_url = "https://tempify-upwork.jakebroz.repl.co";
     this.token = "";
     this.headers = {
       "Content-Type": "application/json",
