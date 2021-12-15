@@ -2,7 +2,7 @@ import React from "react";
 import SidebarItems from "./SidebarItems";
 import { Transition } from "@headlessui/react";
 
-function PhoneSidebar({ ToggleNavbar, NavbarStatus }) {
+function PhoneSidebar({ ToggleNavbar, NavbarStatus , user , token, id, SetAllMessages}) {
   if (!NavbarStatus) return null;
   return (
     <div className="md:hidden">
@@ -39,7 +39,7 @@ function PhoneSidebar({ ToggleNavbar, NavbarStatus }) {
               </svg>
             </button>
           </div>
-          <SidebarItems />
+          <SidebarItems id={id} token={token} user={user} SetAllMessages={SetAllMessages}/>
         </div>
       </div>
     </div>

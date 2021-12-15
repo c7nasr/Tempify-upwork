@@ -1,15 +1,16 @@
+import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
+
 import AccountMenu from "./AccountMenu";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { HiOutlineLogout } from "react-icons/hi";
 import PhoneSidebar from "./PhoneSidebar";
 import React from "react";
-import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import toast from "react-hot-toast";
 import TempifyAPI from "../api/Connection";
+import toast from "react-hot-toast";
 
 const API = new TempifyAPI();
 
-function Navbar({ user, token, id, password }) {
+function Navbar({ user, token, id, password ,SetAllMessages}) {
   const [NavbarStatus, ToggleNavbar] = React.useState(false);
   return (
     <div className="relative flex items-center flex-shrink-0 h-16 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -32,7 +33,7 @@ function Navbar({ user, token, id, password }) {
           ></path>
         </svg>
       </button>
-      {<PhoneSidebar ToggleNavbar={ToggleNavbar} NavbarStatus={NavbarStatus} />}
+      {<PhoneSidebar ToggleNavbar={ToggleNavbar} NavbarStatus={NavbarStatus} user={user} token={token} id={id} password={password} SetAllMessages={SetAllMessages}/>}
 
       <div className="flex justify-between flex-1 px-4">
         <div className="flex flex-1">
